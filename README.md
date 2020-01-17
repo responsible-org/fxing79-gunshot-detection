@@ -1,6 +1,17 @@
 # gunshot detection
 The code (two jupyter notebooks) replicates un-ensembled method for the [Lim's paper](http://www.cs.tut.fi/sgn/arg/dcase2017/documents/challenge_technical_reports/DCASE2017_Lim_204.pdf) of the DCASE-2017 Task 2 http://www.cs.tut.fi/sgn/arg/dcase2017/challenge/task-rare-sound-event-detection. The achieved results seem to attribute partially to the CRNN network architecture and partially to the training data augmentation. 
 
+## Installing the data and making this work
+The strategy here is to use a docker container that can run itorch. This is
+controlled by a Makefile
+
+- make data. This copies the data from an S3 bucket that has the data expanded.
+  See below for how to do this, but you have to do a manual extract into s3. The
+script then will push this data into a ../data directory that lives above this.
+This is a standard layout for our systems. Have S3 syncrhonize
+- make run. This will run a docker container, connect it to the data source in
+  the appropriate mountpoint. See below with the -v connection
+
 ## Running this with iTorch
 Unfortunately, this uses pytorch, so you can't use colab.research.google.com just use File/Open
 and select Github. So you need to get itorch running. This isn't easy given how
@@ -34,7 +45,7 @@ be 500 gunshots.
 
 There is both a devtest and a devtrqin set and you just point the path
 
-YOu need to extract the files
+You need to extract the files
 ```
 https://zenodo.org/record/401395/files/TUT-rare-sound-events-2017-development.mixture_data.9.zip?download=1
 
